@@ -145,7 +145,7 @@ const itemLocations = {
   "Heater": "TA2"
 };
 
-$("#findForm").submit((e) => {
+/*$("#findForm").submit((e) => {
   e.preventDefault();
 
   // Get selected items
@@ -177,6 +177,51 @@ $("#findForm").submit((e) => {
       window.location.reload(); // Optional: Reload the page after submission
     },
     error: function (err) {
+      alert("Something went wrong while submitting the form.");
+    }
+  });
+});
+
+console.log(`Item Locator plugin found!!!`);*/
+
+// New
+
+$("#findForm").submit((e) => {
+  e.preventDefault();
+
+  // Show the loading popup
+  $("#loadingPopup").show();
+
+  const item1 = $("#item1").val();
+  const item2 = $("#item2").val();
+  const item3 = $("#item3").val();
+
+  if (!item1) {
+    $("#loadingPopup").hide(); // Hide the popup before returning
+    alert("Please select all items.");
+    return;
+  }
+
+  const location1 = itemLocations[item1] || "Unknown";
+  const location2 = itemLocations[item2] || "Unknown";
+  const location3 = itemLocations[item3] || "Unknown";
+
+  $.ajax({
+    url: "https://script.google.com/macros/s/AKfycbzHFd8NiDfzaI50NHXBsZypUtpAEgM5CZ1g67H0T0KDa-bEaiBEwpV9eJtJrye2nc2C/exec",
+    data: $("#findForm").serialize(),
+    method: "POST",
+    success: function (response) {
+      // Hide the loading popup
+      $("#loadingPopup").hide();
+
+      // Show alert with locations
+      alert(
+        `Item Locations:\n\n1. ${item1}: ${location1}\n2. ${item2}: ${location2}\n3. ${item3}: ${location3}\n\nAfter the usage, take it back to its place!`
+      );
+      window.location.reload();
+    },
+    error: function (err) {
+      $("#loadingPopup").hide(); // Hide the popup on error too
       alert("Something went wrong while submitting the form.");
     }
   });

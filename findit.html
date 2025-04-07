@@ -25,12 +25,42 @@
             <a class="nav-link" href="login.html">ADMIN</a>
           </li>
   </nav>
+
+    <!-- Preloader -->
+    <div id="preloader">
+    </div>
+
+    
   <div class="p-5"></div>
 
   <!-- NAV -->
 
   <section>
     <div class="ttl">FIND IT</div>
+
+    <section class="text-center swithcode mt-3">
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="position-relative">
+            <input id="searchInput" type="number"
+                   class="form-control rounded-pill search-bar pe-5"
+                   placeholder="Search..."
+                   aria-label="Search">
+            <button class="btn position-absolute top-50 end-0 translate-middle-y" type="button" id="searchBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+        </div>
+      </div>
+    </section>
+
+        <!-- Popup Modal -->
+<div id="loadingPopup" class="popup" style="display: none;">
+  <div class="popup-content">
+    <p>Submitting your data...</p>
+  </div>
+</div>
+
     <br>
     <form id="findForm" method="">
       <div class="container">
@@ -591,7 +621,7 @@
     </form>
   </section>
   <footer class="bg-dark mt-3">
-    <p>&copy 2024 ATL@PMSA <br>Managed by TEB INNOVATIONS <br> Developed by <a href="https://haseef-ws.netlify.app" target="_blank">Haseef Muhammed PC</a> & <a href="https://www.webcraaft.42web.io" target="_blank">Web Craft</a> </p>
+    <p>&copy <i id="year"></i> ATL@PMSA <br>Managed by TEB INNOVATIONS <br> Developed by <a href="https://haseef-ws.netlify.app" target="_blank">Haseef Muhammed PC</a> & <a href="https://tebinnovations.in" target="_blank">TEB Innovations</a> </p>
   </footer>
   
 
@@ -599,6 +629,7 @@
   <script src="script.js"></script>
   <script src="studentsDataBase.js"></script>
   <script src="itemLocator.js"></script>
-  
+  <script src="code-identifier.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

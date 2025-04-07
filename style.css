@@ -95,3 +95,30 @@ body{
   margin-right: auto;
   display: block;
 }
+
+/* Year */
+#year{
+  font-style: normal;
+}
+
+
+/* Search with code */
+
+.swithcode .search-bar {
+  transition: width 0.3s ease-in-out;
+  width: 40px;
+}
+
+.swithcode .search-bar:focus {
+  width: 250px;
+}
+
+/* Preloader */
+#preloader{
+  background: white url(images/loading.gif) no-repeat center center;
+  background-size: 20%;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+}
