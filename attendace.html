@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATL PMSA</title>
+  <link rel="icon" href="images/tab.png" type="image/logo">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="bootstrap.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html"><b class="brand">ATL PMSA</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 ms-auto mx-5">
+          <li class="nav-item">
+            <a class="nav-link active  text-danger" aria-current="page" href="index.html">STUDENTS PORTAL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">ADMIN</a>
+          </li>
+  </nav>
+  <div class="p-5"></div>
+
+  <!-- NAV -->
+
+  <section>
+    <div class="ttl">ATTENDANCE</div>
+    <br>
+    <!-- Popup Modal -->
+<div id="loadingPopup" class="popup" style="display: none;">
+  <div class="popup-content">
+    <p>Submitting your data...</p>
+  </div>
+</div>
+
+<form id="attendace">
+  <div class="container">
+    <div class="form-row row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Enter roll number</label><i class="text-danger">*</i>
+        <input type="number" class="form-control" id="rollNo" name="Roll No" placeholder="000" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputState">Select session</label><i class="text-danger">*</i>
+        <select id="session" name="Session" class="form-control" required>
+          <option selected value="">Choose...</option>
+          <option value="Half day">Half day</option>
+          <option value="Full day">Full day</option>
+          <option value="Workshop">Workshop</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-group col-md-12">
+        <label for="inputPassword4">Name</label>
+        <input type="text" class="form-control" name="Student Name" id="studentName" placeholder="Your name will display here !!" readonly>
+      </div>
+    </div>
+    <input type="time" id="timeInput" class="mt-3" name="Time" readonly>
+    <button type="submit" class="btn btn-dark mt-3 sub-btn" style="display: block;">Submit</button>
+  </div>
+</form>
+
+<footer class="bg-dark mt-3">
+  <p>&copy 2024 ATL@PMSA <br>Managed by TEB INNOVATIONS <br> Developed by <a href="https://haseef-ws.netlify.app" target="_blank">Haseef Muhammed PC</a> & <a href="https://www.webcraaft.42web.io" target="_blank">Web Craft</a> </p>
+</footer>
+
+<script src="bootstrap.js"></script>
+<script src="script.js"></script>
+<script src="studentsDataBase.js"></script>
+<script>
+  $("#attendace").submit((e) => {
+    e.preventDefault();
+    
+    // Show the loading popup
+    $("#loadingPopup").show();
+    
+    $.ajax({
+      url: "https://script.google.com/macros/s/AKfycbxnjx-pyDzoYnbxT6L-vl2_QA9KI7LHdaAEDixwHVhPTdyZRXx0DRbfdA4L5I45X19P/exec",
+      data: $("#attendace").serialize(),
+      method: "post",
+      success: function (response) {
+        alert("Attendance submitted successfully !!!");
+        // Hide the loading popup after success
+        $("#loadingPopup").hide();
+        window.location.reload();
+      },
+      error: function (err) {
+        alert("Something went wrong");
+        // Hide the loading popup if there was an error
+        $("#loadingPopup").hide();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

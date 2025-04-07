@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATL PMSA</title>
+  <link rel="icon" href="images/tab.png" type="image/logo">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="bootstrap.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body id="body">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="dashboard-atl.html"><b class="brand">ATL PMSA</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 ms-auto mx-5">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.html">STUDENTS PORTAL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  active  text-danger" href="login.html">LOGOUT</a>
+          </li>
+  </nav>
+  <div class="p-5"></div>
+
+  <!-- NAV -->
+
+  <section>
+    <div class="ttl">FINE GENERATOR</div>
+  </section>
+    <br>
+    <!-- Popup Modal -->
+
+    <section>
+      <div class="container mt-5">
+        <h1 class="text-center">Case Generator</h1>
+        <div class=" mt-4">
+          <div class="card-body">
+            <form id="caseForm">
+                <div class="row">
+                  <div class="col-md-6">
+                <label for="name" class="form-label">Roll Number</label><i class="text-danger">*</i>
+                <input type="number" class="form-control" id="rollNo" required>
+              </div>
+              <div class="col-md-6">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" name="Student Name" id="studentName" placeholder="Your name will display here !!" readonly>
+              </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-6">
+              <label for="name" class="form-label">Description</label><i class="text-danger">*</i>
+              <textarea class="form-control" id="description" rows="3" required></textarea>
+            </div>
+            <div class="col-md-3">
+              <label for="name" class="form-label">Date</label><i class="text-danger">*</i>
+              <input type="date" class="form-control" id="date" placeholder="Date" required>
+            </div>
+            <div class="col-md-3">
+              <label for="name" class="form-label">Time</label><i class="text-danger">*</i>
+              <input type="time" class="form-control" id="time" placeholder="Date" required>
+            </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+            <label for="name" class="form-label">Case ID</label><i class="text-danger">*</i>
+            <input type="number" id="caseID" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label for="name" class="form-label">Generator</label><i class="text-danger">*</i>
+            <input type="text" id="generator" class="form-control" required>
+          </div>
+          </div>
+
+
+          <h1 class="text-center p-3">Fraud Details</h1>
+          <img class="img-fluid chart" src="images/Price chart (1).png" alt="">
+          <div class="row">
+            <div class="col-md-6">
+          <label for="name" class="form-label">Roll Number</label><i class="text-danger">*</i>
+          <input type="number" class="form-control" id="rollNo2" required>
+        </div>
+        <div class="col-md-6">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" name="Student Name" id="studentName2" placeholder="Your name will display here !!" readonly>
+        </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+        <label for="name" class="form-label">Amount</label><i class="text-danger">*</i>
+        <input type="number" id="amount" class="form-control" required>
+      </div>
+      <div class="col-md-6">
+        <label for="name" class="form-label">Due date</label><i class="text-danger">*</i>
+        <input type="date" class="form-control" id="dueDate" placeholder="Date" required>
+      </div>
+      </div>
+
+
+              <button type="button" class="btn btn-primary w-100 mt-4" onclick="generate()">Generate Case</button>
+            </form>
+          </div>
+        </div>
+    </div>
+    </section>
+
+        <section id="content">
+          <div class="container">
+        <div class="mt-4" id="caseOutput">
+          <div class="card-body">
+            <img class="icon" src="images/tab.png" alt="">
+            <h1 class="text-center brand-case">Fraud Case - ATL@PMSA</h1>
+            <p id="caseId" class="case-id p-3 mt-3"></p>
+            <p id="caseText" class="mt-3"></p>
+            <p id="r1" class="p-5">
+              The cash is devided on the basis of rules</p>
+            <p id="r2" class="mt-3"></p>
+            <p id="r3" class="mt-3"></p>
+            <p id="r4" class="mt-3"></p>
+            <p id="r5" class="text-center p-2">THIS IS A COMPUTER GENERATED CASE.</p>
+            <img class="sign mt-3" src="images/case sign.png" alt="">
+            <br>
+            <marquee behavior="" direction="">WEB CRAFT : WWW.WEBCRAAFT.42WEB.IO | WEB CRAFT : WWW.WEBCRAAFT.42WEB.IO | WEB CRAFT : WWW.WEBCRAAFT.42WEB.IO | WEB CRAFT : WWW.WEBCRAAFT.42WEB.IO | WEB CRAFT : WWW.WEBCRAAFT.42WEB.IO | </marquee>
+            <button class="btn btn-success w-100" onclick="printPage()">Print Case</button>
+            <div class="p-3"></div>
+          </div>
+        </div>
+      </div>
+    
+    </section>
+
+<script src="bootstrap.js"></script>
+<script src="studentsDataBase.js"></script>
+<!-- <script src="script.js"></script> -->
+<script src="case.js"></script>
+</body>
+</html>
