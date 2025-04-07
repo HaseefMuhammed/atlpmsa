@@ -129,6 +129,13 @@ img {
 
 <!-- Manage -->
 
+<!-- Announcements -->
+
+<section class="text-center">
+  <h1 class="mb-4">Announcements</h1>
+  <div class="alert alert-warning" id="messageBox">Waiting for message...</div>
+</section>
+
 <section class="manage-std">
   <h1 class="ttl">student portal</h1>
   <br>
@@ -233,5 +240,33 @@ function show() {
 
 console("Your using webcraft ")
   </script>
+
+ <!-- Firebase SDK -->
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+
+  // ✅ Firebase config (smartatl)
+  const firebaseConfig = {
+    apiKey: "AIzaSyCYTyL3yO6SV-14HB7c83pORtzUhPyT8GU",
+    authDomain: "smartatl.firebaseapp.com",
+    databaseURL: "https://smartatl-default-rtdb.firebaseio.com",
+    projectId: "smartatl",
+    storageBucket: "smartatl.firebasestorage.app",
+    messagingSenderId: "184539491031",
+    appId: "1:184539491031:web:f654ae527b8a6f6af11e92"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const msgRef = ref(db, "message/");
+
+  // Live message listener
+  onValue(msgRef, (snapshot) => {
+    const data = snapshot.val();
+    document.getElementById("messageBox").innerText = data?.text || "No message yet.";
+  });
+</script>
 </body>
 </html>

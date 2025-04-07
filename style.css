@@ -122,3 +122,9 @@ body{
   position: fixed;
   z-index: 100;
 }
+
+/* Announcments */
+#messageBox{
+  font-size: 1.2em !important;
+  font-weight: bolder;
+}

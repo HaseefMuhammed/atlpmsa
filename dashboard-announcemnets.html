@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATL PMSA</title>
+  <link rel="icon" href="images/tab.png" type="image/logo">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="bootstrap.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="dashboard-atl.html"><b class="brand">ATL PMSA</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 ms-auto mx-5">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.html">STUDENTS PORTAL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  active  text-danger" href="login.html">LOGOUT</a>
+          </li>
+  </nav>
+
+    <!-- Preloader -->
+    <div id="preloader">
+    </div>
+
+    
+  <div class="p-5"></div>
+
+  <!-- NAV -->
+
+  <!-- announcement -->
+<div class="container">
+  <section class="text-center">
+    <h1 class="mb-4">Announcement maker</h1>
+
+    <!-- Message Input -->
+    <div class="mb-3">
+      <textarea class="form-control" id="messageInput" rows="3" placeholder="Type your message here"></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+  
+    <hr>
+  
+    <!-- Live Message Display -->
+    <h2>Live Message Preview</h2>
+    <div class="alert alert-info" id="liveMessage">Waiting for message...</div>
+  
+  </section>
+</div>
+
+  <footer class="bg-dark mt-3 fixed-bottom">
+    <p>&copy <i id="year"></i> ATL@PMSA <br>Managed by TEB INNOVATIONS <br> Developed by <a href="https://haseef-ws.netlify.app" target="_blank">Haseef Muhammed PC</a> & <a href="https://tebinnovations.in" target="_blank">TEB Innovations</a> </p>
+  </footer>
+    
+
+<script src="bootstrap.js"></script>
+<script src="script.js"></script>
+<script src="main.js"></script>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+
+  // ✅ Updated Firebase configuration (smartatl project)
+  const firebaseConfig = {
+    apiKey: "AIzaSyCYTyL3yO6SV-14HB7c83pORtzUhPyT8GU",
+    authDomain: "smartatl.firebaseapp.com",
+    databaseURL: "https://smartatl-default-rtdb.firebaseio.com",
+    projectId: "smartatl",
+    storageBucket: "smartatl.firebasestorage.app",
+    messagingSenderId: "184539491031",
+    appId: "1:184539491031:web:f654ae527b8a6f6af11e92"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const msgRef = ref(db, "message/");
+
+  // Send Message Function
+  window.sendMessage = function () {
+    const msg = document.getElementById("messageInput").value.trim();
+    if (msg !== "") {
+      set(msgRef, { text: msg });
+      document.getElementById("messageInput").value = "";
+      alert("Message Sent!");
+    }
+  };
+
+  // Live message preview
+  onValue(msgRef, (snapshot) => {
+    const data = snapshot.val();
+    document.getElementById("liveMessage").innerText = data?.text || "No message yet.";
+  });
+</script>
+</body>
+</html>
