@@ -1,7 +1,7 @@
 const codeName = {
-  101: 'Uxcell Adjust IR Pyroelectric PIR Motion Sensor Detector Module Hc-sr501',
-  102: 'USB 2.0 A Male to B Male',
-  103: 'Test'
+  100: 'Uxcell Adjust IR Pyroelectric PIR Motion Sensor Detector Module Hc-sr501',
+  101: 'USB 2.0 A Male to B Male',
+  102: 'Test'
 };
 
 function performSearch() {

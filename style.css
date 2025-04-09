@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Rubik+Wet+Paint&display=swap');
 
+/* Variables */
+:root{
+  --c-brand: rgb(252, 142, 70);
+  --c-logo: rgb(23, 9, 0);
+  --f-main:  font-family: "Rubik Wet Paint", serif;
+}
+
 .brand{
   font-size: 1.5em;
 }
@@ -127,4 +134,37 @@ body{
 #messageBox{
   font-size: 1.2em !important;
   font-weight: bolder;
+}
+
+/* background */
+
+/* body{
+  background-image: url("images/bg2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+} */
+
+/* Custom cursor for the whole page */
+body, a, button, input, textarea, select, label {
+  cursor: url('images/c5.png'), auto;
+}
+
+/* chatbot mimo */
+
+#chatbot-logo {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  z-index: 9999;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+#chatbot-logo:hover {
+  transform: scale(1.1);
 }

@@ -140,9 +140,10 @@ const itemLocations = {
   "Monitor": "CA1",
   "Keyboard": "A2S3L",
   "Driller bit set": "TA1",
-  "Laptop": "A2S3L",
+  "Laptop": "A2S3R",
   "Soldering iron": "TA2",
-  "Heater": "TA2"
+  "Heater": "TA2",
+  "Glue gun": "TA2"
 };
 
 /*$("#findForm").submit((e) => {
