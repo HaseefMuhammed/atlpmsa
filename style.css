@@ -1,10 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Rubik+Wet+Paint&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 /* Variables */
 :root{
-  --c-brand: rgb(252, 142, 70);
-  --c-logo: rgb(23, 9, 0);
-  --f-main:  font-family: "Rubik Wet Paint", serif;
+  --c-brand: #fc8e46;         /* Vibrant orange for highlights/buttons */
+  --c-brand-dark: #d2691e;     /* Deeper orange for hover/active */
+  --c-logo: #170900;           /* Deep brown-black for logo/brand */
+  --c-bg: #181a1b;             /* Main background (almost black) */
+  --c-bg-alt: #23272b;         /* Card/section background */
+  --c-text: #f1f1f1;           /* Main text color (off-white) */
+  --c-text-muted: #b0b0b0;     /* Muted/secondary text */
+  --c-card: #23272b;           /* Card background */
+  --c-card-border: #333;       /* Card border */
+  --c-footer: #111;            /* Footer background */
+  --c-btn: #fc8e46;            /* Button background */
+  --c-btn-text: #181a1b;       /* Button text */
+  --c-link: #fc8e46;           /* Link color */
+  --c-link-hover: #ffb47a;     /* Link hover color */
+  --c-shadow: rgba(0,0,0,0.25);/* Shadow for cards/modals */
+  --c-success: #4caf50;        /* Success/positive */
+  --c-danger: #e74c3c;         /* Error/negative */
+  --c-warning: #ffc107;        /* Warning/accent */
+  --f-main: 'Roboto', 'Rubik', 'Noto Sans Malayalam', Arial, sans-serif;
 }
 
 .brand{
