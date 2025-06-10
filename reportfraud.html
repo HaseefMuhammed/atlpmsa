@@ -90,6 +90,25 @@
   </div>
 </form>
 
+<!-- Professional Success Alert Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <svg width="48" height="48" fill="none" viewBox="0 0 24 24" style="margin-bottom:1rem;"><circle cx="12" cy="12" r="12" fill="#d1e7dd"/><path d="M7 13l3 3 7-7" stroke="#198754" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div style="font-size:1.2rem;">Case submitted successfully!<br>Contact TEB INNOVATIONS for more info.</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer class="bg-dark mt-3">
   <p>&copy <i id="year"></i> ATL@PMSA <br>Managed by TEB INNOVATIONS <br> Developed by <a href="https://haseef-ws.netlify.app" target="_blank">Haseef Muhammed PC</a> & <a href="https://tebinnovations.in" target="_blank">TEB Innovations</a> </p>
 </footer>
@@ -101,27 +120,79 @@
 <script>
   $("#fraud").submit((e) => {
     e.preventDefault();
-    
-    // Show the loading popup
     $("#loadingPopup").show();
-    
     $.ajax({
       url: "https://script.google.com/macros/s/AKfycbzAuK7lZCGVp53tdGPsCD7tBGJSqqk0MnP3uqMn4nJBJH1ZSOYYtnj539T8SHd1oFc8/exec",
       data: $("#fraud").serialize(),
       method: "post",
       success: function (response) {
-        alert("Case submitted successfully !!!,  Contact TEB INNOVATIONS for more info !!");
-        // Hide the loading popup after success
         $("#loadingPopup").hide();
-        window.location.reload();
+        // Show professional modal instead of alert
+        var modal = new bootstrap.Modal(document.getElementById('successModal'));
+        modal.show();
+        // Reload after modal closes
+        $('#successModal').on('hidden.bs.modal', function () {
+          window.location.reload();
+        });
       },
       error: function (err) {
-        alert("Something went wrong");
-        // Hide the loading popup if there was an error
         $("#loadingPopup").hide();
+        alert("Something went wrong");
       }
     });
   });
+</script>
+<script>
+// --- Roll No to Name Autofill from Google Sheet CSV ---
+let rollToNameMap = {};
+let csvLoaded = false;
+
+fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vTZOeapGelwIb3wK8it_zgdZagXnlEU8RYWxv3HtvLp-rYe4OmEwbxRs4_ieHTdjRzDLmzZFHOhmu1J/pub?output=csv')
+  .then(response => response.text())
+  .then(csv => {
+    const lines = csv.split('\n');
+    const headers = lines[0].split(',');
+    const rollIdx = headers.findIndex(h => h.toLowerCase().includes('roll'));
+    const nameIdx = headers.findIndex(h => h.toLowerCase().includes('name'));
+    for (let i = 1; i < lines.length; i++) {
+      const row = lines[i].split(',');
+      if (row.length > Math.max(rollIdx, nameIdx)) {
+        const rollKey = row[rollIdx].trim().replace(/^0+/, '');
+        rollToNameMap[rollKey] = row[nameIdx].trim();
+      }
+    }
+    csvLoaded = true;
+  });
+
+$('#rollNo').on('input', function() {
+  const rollRaw = $(this).val();
+  if (!csvLoaded) {
+    $('#studentName').val('Loading...');
+    return;
+  }
+  const roll = rollRaw.trim().replace(/^0+/, '');
+  if (!roll) {
+    $('#studentName').val('');
+    return;
+  }
+  const name = rollToNameMap[roll] || '';
+  $('#studentName').val(name ? name : 'Cant find student with this roll number');
+});
+
+$('#rollNo2').on('input', function() {
+  const rollRaw = $(this).val();
+  if (!csvLoaded) {
+    $('#studentName2').val('Loading...');
+    return;
+  }
+  const roll = rollRaw.trim().replace(/^0+/, '');
+  if (!roll) {
+    $('#studentName2').val('');
+    return;
+  }
+  const name = rollToNameMap[roll] || '';
+  $('#studentName2').val(name ? name : 'Cant find student with this roll number');
+});
 </script>
 
 </body>

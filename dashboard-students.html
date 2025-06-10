@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="bootstrap.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Add Bootstrap Icons CDN for print icon -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -32,12 +34,24 @@
 
     
   <div class="p-5"></div>
+  <h1 class="text-center">Students List</h1>
+
+  <!-- Print Button -->
+  <div class="container mb-3 text-end">
+    <button id="print-btn" class="btn btn-primary"><i class="bi bi-printer"></i> Print All as PDF</button>
+  </div>
+
+  <!-- Student Cards Container -->
+  <div class="container my-4">
+    <div id="students-cards" class="row g-4 justify-content-center">
+      <!-- Student cards will be injected here -->
+    </div>
+  </div>
 
   <!-- NAV -->
+   <!-- Add this after <div class="p-5"></div> and before <footer> -->
 
-  <section>
-    <iframe class="iframe-dash" src="https://docs.google.com/spreadsheets/d/1vWoaJ1M4DyEy-3MZ866toC5ZDHWKkco0R_RnSbw_zUE/edit?usp=sharing" frameborder="0"></iframe>
-  </section>
+
 
   <footer class="bg-dark mt-3">
     <p>&copy <i id="year"></i> ATL@PMSA <br>Managed by TEB INNOVATIONS <br> Developed by <a href="https://haseef-ws.netlify.app" target="_blank">Haseef Muhammed PC</a> & <a href="https://tebinnovations.in" target="_blank">TEB Innovations</a> </p>
@@ -47,6 +61,59 @@
 <script src="bootstrap.js"></script>
 <script src="script.js"></script>
 <script src="main.js"></script>
+<script>
+// Fetch and display student cards from Google Sheets CSV (only Roll No, Name, Class, Division, Contact Number)
+fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vTZOeapGelwIb3wK8it_zgdZagXnlEU8RYWxv3HtvLp-rYe4OmEwbxRs4_ieHTdjRzDLmzZFHOhmu1J/pub?output=csv')
+  .then(response => response.text())
+  .then(csv => {
+    const lines = csv.split('\n').filter(line => line.trim() !== '');
+    const headers = lines[0].split(',');
+    const students = lines.slice(1).map(line => {
+      const values = line.split(',');
+      const student = {};
+      headers.forEach((header, i) => {
+        student[header.trim()] = values[i] ? values[i].trim() : '';
+      });
+      return student;
+    });
+    const cardsContainer = document.getElementById('students-cards');
+    cardsContainer.innerHTML = '';
+    students.forEach(student => {
+      const card = document.createElement('div');
+      card.className = 'col-md-4 col-lg-3';
+      card.innerHTML = `
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">${student["Name"] || 'No Name'}</h5>
+            <p class="card-text">
+              <strong>Roll No:</strong> ${student["Roll No"] || '-'}<br>
+              <strong>Class:</strong> ${student["Class"] || '-'}<br>
+              <strong>Division:</strong> ${student["Division"] || '-'}<br>
+              <strong>Contact Number:</strong> ${student["Contact Number"] || '-'}
+            </p>
+          </div>
+        </div>
+      `;
+      cardsContainer.appendChild(card);
+    });
+  })
+  .catch(err => {
+    document.getElementById('students-cards').innerHTML = '<div class="alert alert-danger">Failed to load student data.</div>';
+  });
 
+// Print functionality
+function printStudentsPDF() {
+  const printContents = document.getElementById('students-cards').outerHTML;
+  const originalContents = document.body.innerHTML;
+  document.body.innerHTML = `
+    <h2 style='text-align:center;'>Student List</h2>
+    <div class='container'>${printContents}</div>
+  `;
+  window.print();
+  document.body.innerHTML = originalContents;
+  window.location.reload(); // reload to restore event listeners
+}
+document.getElementById('print-btn').addEventListener('click', printStudentsPDF);
+</script>
 </body>
 </html>
