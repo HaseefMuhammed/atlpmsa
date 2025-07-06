@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sleep Mode - ATL PMSA</title>
+  <link rel="icon" href="images/tab.png" type="image/logo">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --c-brand: #fc8e46;
+      --c-brand-dark: #d2691e;
+      --c-logo: #170900;
+      --c-bg: #181a1b;
+      --c-bg-alt: #23272b;
+      --c-text: #f1f1f1;
+      --c-text-muted: #b0b0b0;
+      --c-card: #23272b;
+      --c-card-border: #333;
+      --c-footer: #111;
+      --c-btn: #fc8e46;
+      --c-btn-text: #181a1b;
+      --c-link: #fc8e46;
+      --c-link-hover: #ffb47a;
+      --c-shadow: rgba(0,0,0,0.25);
+      --c-success: #4caf50;
+      --c-danger: #e74c3c;
+      --c-warning: #ffc107;
+      --f-main: 'Roboto', 'Rubik', 'Noto Sans Malayalam', Arial, sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--c-bg);
+      font-family: var(--f-main);
+      color: var(--c-text);
+      transition: background 0.5s;
+    }
+    .glass-card {
+      background: rgba(35, 39, 43, 0.65);
+      border-radius: 22px;
+      box-shadow: 0 8px 32px 0 var(--c-shadow);
+      border: 1.5px solid var(--c-card-border);
+      backdrop-filter: blur(16px) saturate(120%);
+      -webkit-backdrop-filter: blur(16px) saturate(120%);
+      padding: 2.5rem 3.5rem 2rem 3.5rem;
+      text-align: center;
+      max-width: 370px;
+      width: 100%;
+      color: var(--c-text);
+      position: relative;
+    }
+    .sleep-icon {
+      font-size: 3.5rem;
+      color: var(--c-brand);
+      margin-bottom: 0.7rem;
+      display: block;
+      opacity: 0.85;
+    }
+    .glass-card h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--c-brand);
+      letter-spacing: 1.5px;
+    }
+    .glass-card p {
+      color: var(--c-text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+    }
+    .clock {
+      font-size: 2.2rem;
+      font-family: 'Roboto Mono', monospace;
+      color: var(--c-brand-dark);
+      background: rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 0.4em 1em;
+      margin-bottom: 0.7rem;
+      letter-spacing: 0.1em;
+      box-shadow: 0 2px 8px #0002;
+      display: inline-block;
+    }
+    @media (max-width: 500px) {
+      .glass-card { padding: 1.2rem 0.5rem; }
+      .clock { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glass-card">
+    <span class="sleep-icon">😴</span>
+    <h1>Sleep Mode</h1>
+    <div class="clock" id="clock">--:--:--</div>
+    <p>You are offline.<br>Take a break or check your connection.</p>
+  </div>
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('clock').textContent = `${h}:${m}:${s}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+    window.addEventListener('online', function() {
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
